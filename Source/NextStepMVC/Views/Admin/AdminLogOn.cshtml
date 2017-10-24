@@ -1,0 +1,66 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+@model NextStepMVC.Models.RetrieveContent
+
+
+@{
+        ViewBag.Title = "Admin Login";
+    }
+
+
+<head>
+  
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+
+<body>
+    <div style="padding-top: @Html.Raw(paddingtop)px;"></div>
+        
+        
+        @if (ViewBag.Error != null)
+        {
+            <div class="jumbotron" style="background-color: #FFBABA; height: 50px; padding-top: 14px">             
+                 <h5 style="color: #D8000C"> <i class="glyphicon glyphicon-ban-circle">  </i> @Html.Raw(ViewBag.Error) </h5>
+            </div>
+        }
+        
+        
+
+    <div class="jumbotron">
+            <div class="col-md-offset-4">
+                <h2 id="header">Login Admin</h2>
+                @using (Html.BeginForm())
+                {
+                    <form class="float_left" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm chat-input" placeholder="Brugernavn" name="usr">
+                            <input type="password" class="form-control input-sm chat-input" placeholder="Password" name="pwd">
+                        </div>
+                        <button class="btn btn-inverse" title="Log In" type="submit">Log In</button>
+                    </form>
+                }
+        
+
+            </div>
+        </div>
+    </body>
+</html>

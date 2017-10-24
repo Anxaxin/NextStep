@@ -1,0 +1,166 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "AdminHome";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/EditContentStyle.css" />
+</head>
+<body>
+    @{ int paddingtop = Model.Style.HeaderSize;}
+    @if (Model.Style.HeaderAlignRight != 2)
+    {
+        paddingtop = paddingtop * 2;
+    }
+    else
+    {
+        if (Model.Style.HeaderSize == 0)
+        {
+            paddingtop = paddingtop + 20;
+        }
+        if (Model.Style.HeaderSize == 10)
+        {
+            paddingtop = paddingtop + 50;
+        }
+        if (Model.Style.HeaderSize == 20)
+        {
+            paddingtop = paddingtop + 80;
+        }
+    }
+
+<div style="padding-top: @Html.Raw(paddingtop)px;">
+</div>
+<div class="panel panel-default col-md-4" style="height: 320px">
+    <h2>Indhold</h2>
+    <div>
+        <br/>
+    </div>
+    <div class="row">
+        <div class="col-md-10 ">
+            <div class="dropdown" style="min-width: 75%">
+                <button class="dropbtn" style="min-width: 100%">Tilføj Panel ▾</button>
+                <div class="dropdown-content">
+                    <a href="@Url.Action("AddComboPanel", "Add")">Tilføj Combo Panel</a>
+                    <a href="@Url.Action("AddPicturePanel", "Add")">Tilføj Billede Panel</a>
+                    <a href="@Url.Action("AddTextPanel", "Add")">Tilføj Tekst Panel</a>
+                    <a href="@Url.Action("AddVideoPanel", "Add")">Tilføj Video Panel</a>
+                    <a href="@Url.Action("AddGalleryPanel", "Add")">Tilføj Galleri</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br/>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="dropdown" style="min-width: 75%">
+                <button class="dropbtn" style="min-width: 100%">Ret Panel ▾</button>
+                <div class="dropdown-content">
+                    @{ var i = 0;}
+                    @foreach (var item in Model.Pan)
+                    {
+                        if (item.CombomPanel != null)
+                        {
+                            <a href="@Url.Action("EditComboPanel", "Edit", new {id = i})">@item.MenuTag - @item.UnderMenuTag</a>
+                        }
+                        else if (item.PicturePanel != null)
+                        {
+                            <a href="@Url.Action("EditPicturePanel", "Edit", new {id = i})">@item.MenuTag - @item.UnderMenuTag</a>
+                        }
+                        else if (item.TextPanel != null)
+                        {
+                            <a href="@Url.Action("EditTextPanel", "Edit", new {id = i})">@item.MenuTag - @item.UnderMenuTag</a>
+                        }
+                        else if (item.VideoTable != null)
+                        {
+                            <a href="@Url.Action("EditVideoPanel", "Edit", new {id = i})">@item.MenuTag - @item.UnderMenuTag</a>
+                        }
+                        else if (item.GalleryPanel != null)
+                        {
+                            <a href="@Url.Action("EditGalleryPanel", "Edit", new {id = i})">@item.MenuTag - @item.UnderMenuTag</a>
+                        }
+                        i++;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <br/>
+        </div>
+        <div class="col-md-10">
+            <a href="@Url.Action("EditMenuIndexing", "Edit")">
+                <div class="dropdown" style="min-width: 75%">
+                    <div class="dropbtn" style="min-width: 100%">Ret menu placering</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div>
+        <br/>
+    </div>
+</div>
+<div class="panel panel-default col-md-4 col-md-offset-2" style="height: 320px">
+    <h2>Design</h2>
+    <div>
+        <br/>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <a href="@Url.Action("EditSiteStyle", "Edit")">
+                <div class="dropdown" style="min-width: 75%">
+                    <div class="dropbtn" style="min-width: 100%">Ret Site Style</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div>
+            <br/>
+        </div>
+        <div class="col-md-10">
+            <a href="@Url.Action("AddStyle", "Add")">
+                <div class="dropdown" style="min-width: 75%">
+                    <div class="dropbtn" style="min-width: 100%">Tilføj Panel Style</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div>
+        <br/>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="dropdown" style="min-width: 75%">
+                <button class="dropbtn" style="min-width: 100%">Ret Panel Style ▾</button>
+                <div class="dropdown-content">
+                    @{ var i4 = 0;}
+                    @foreach (var item3 in Model.PanelStyles)
+                    {
+                        <a href="@Url.Action("EditStyle", "Edit", new {id = i4})">@item3.StyleName</a>
+                        i4++;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default col-md-4" style="height: 320px">
+    <h2>Admin</h2>
+    <div class="row">
+        <div>
+            <br/>
+        </div>
+        <div class="col-md-10">
+            <a href="@Url.Action("ManageUsers", "Admin")">
+                <div class="dropdown" style="min-width: 75%">
+                    <div class="dropbtn" style="min-width: 100%">Brugere</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+</body>

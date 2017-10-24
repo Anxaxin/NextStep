@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application\SimaNextStep]
+"CategoryMessageFile"="D:\\AppData\\XSErrorLogData\\SimaEventLog.dll"
+"CategoryCount"=dword:00000004
+"EventMessageFile"="C:\\WINDOWS\\Microsoft.NET\\Framework64\\v2.0.50727\\EventLogMessages.dll;D:\\AppData\\XSErrorLogData\\SimaEventLog.dll"
+
+

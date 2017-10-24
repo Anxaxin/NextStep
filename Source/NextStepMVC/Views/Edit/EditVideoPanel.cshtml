@@ -1,0 +1,129 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+
+@{
+    ViewBag.Title = "EditVideoPanel";
+}
+
+<head>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#menuTag').autocomplete(
+            {
+                source: '@Url.Action("GetMenuTags", "Add")'
+            });
+        })
+    </script>
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+
+    <body>
+        @if (ViewData["id"] != null)
+        {
+            var id = ViewBag.id;
+            <div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+                <a href="/Admin/AdminHome">Tilbage</a>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="text" value="@Model.Pan[id].Panel_Id" hidden name="thisID" />
+                    <div class="row">
+                        <h2>Ret Video Panel</h2>
+                        <div class="form-group">
+                            <label>
+                                <span class="field-tip">
+                                    Menu navn:
+                                    <span class="tip-content">Hvad der kommer til at stå i toppen af siden.</span>
+                                </span>
+                            </label>
+                            <input type="text" value="@Model.Pan[id].MenuTag" required class="form-control" id="menuTag" name="menuTag">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span class="field-tip">
+                                    Undermenu navn:
+                                    <span class="tip-content">Hvis der er flere paneler med samme 'Menu navn' laves en undermenu hvor dette navn bruges.</span>
+                                </span>
+                            </label>
+                            <input type="text" required class="form-control" value="@Model.Pan[id].UnderMenuTag" name="underMenuTag">
+                        </div>
+                        <div>
+                            <label>
+                                <span class="field-tip">
+                                    Panel Design:
+                                    <span class="tip-content">Her vælger du en af dine panel styles (Disse angiver fx. baggrundsfarve, skriftype, osv.)</span>
+                                </span>
+                            </label>
+                            <select class="form-control" name="panelDesign">
+                                @foreach (var item in Model.PanelStyles)
+                                {
+                                    if (item.Id == Model.Pan[id].StyleSheet)
+                                    {
+                                        <option selected value=@item.Id>@item.StyleName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=@item.Id>@item.StyleName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span class="field-tip">
+                                    Overskrift:
+                                    <span class="tip-content">En overskrift i selvepanelet, fx. 'Velkommen til www.sima.dk'</span>
+                                </span>
+                            </label>
+                            <input type="text" value="@Model.Pan[id].VideoTable.VideoHeader" required class="form-control" name="hdr">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <span class="field-tip">
+                                    Youtube link:
+                                    <span class="tip-content">Kopiér et link til en youtube video, som du gerne vil have vist på din side.</span>
+                                </span>
+                            </label>
+                            <input type="text" value="http://www.youtube.com/embed/@Model.Pan[id].VideoTable.VideoUrl" required class="form-control" name="videoURL">
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Gem</button>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Annuller" type="submit" name="submit" id="cancel" value="cancel">Annuller</button>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Slet" type="submit" onclick="return confirm('Er du sikker på du vil slette dette panel?')" name="submit" id="delete" value="delete">Slet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+    </body>

@@ -1,0 +1,78 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "EditMenuIndexing";
+}
+<head>
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+    <body>
+        <div>
+            <div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+                <a href="/Admin/AdminHome">Tilbage</a>
+                <h3>Tryk på pilene, for at flytte menupunkterne</h3>
+                <label>
+                    <span class="field-tip">
+                        Hjælp?
+                        <span class="tip-content">Hver kasse indeholder et menunavn og et antal undermenunavne. Trykker man på en af pilene ud for enten menunavnet eller undermenunavnet, rykkes dette i retningen af pilen.</span>
+                    </span>
+                </label>
+                @{var index = 0; }
+                @foreach (var item in Model.Pan)
+                {
+                    if (item.MenuIndex != index)
+                    {
+                        index = Convert.ToInt32(item.MenuIndex);
+                        <div class="col-md-12">
+                            <div class="row panel panel-default">
+                                <div class="col-md-5">
+                                    <h4><b>@item.MenuTag</b> <a href="@Url.Action("MoveMenuIndexUp", "Edit", new {id = item.MenuIndex})">&uarr;</a> <a href="@Url.Action("MoveMenuIndexDown", "Edit", new {id = item.MenuIndex})">&darr;</a></h4>
+                                    <ul>
+                                        @foreach (var item2 in Model.Pan)
+                                        {
+                                            if (item2.MenuIndex == item.MenuIndex)
+                                            {
+                                                <li class="list-group-item" style="padding-top: 4px; padding-bottom: 4px;">
+                                                    <span class="pull-right">
+                                                        <a href="@Url.Action("MoveUnderMenuIndexUp", "Edit", new {index = item2.MenuIndex, underIndex = item2.UnderMenuIndex})">&uarr;</a> <a href="@Url.Action("MoveUnderMenuIndexDown", "Edit", new {index = item2.MenuIndex, underIndex = item2.UnderMenuIndex})">&darr;</a>
+                                                    </span>
+                                                    -@item2.UnderMenuTag
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <br />
+            <form action="/Admin/AdminHome">
+                <div class="col-md-2">
+                    <button class="btn btn-inverse" style="align-items:center; width: 100%;">Tilbage</button>
+                </div>
+            </form>
+            <br />
+            <br />
+        </div>
+    </body>

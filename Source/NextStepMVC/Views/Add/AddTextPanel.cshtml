@@ -1,0 +1,98 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "AddTextPanel";
+}
+<head>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#menuTag').autocomplete(
+            {
+                source: '@Url.Action("GetMenuTags", "Add")'
+            });
+        })
+    </script>
+</head>
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+<body>
+<div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+    <a href="/Admin/AdminHome">Tilbage</a>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <h2>Tilføj Tekst Panel</h2>
+            <div class="form-group">
+                <label><span class="field-tip">
+                    Menu navn:
+                    <span class="tip-content">Hvad der kommer til at stå i toppen af siden.</span>
+                </span></label>
+                <input type="text" required class="form-control" id="menuTag" name="menuTag">
+            </div>
+            <div class="form-group">
+                <label><span class="field-tip">
+                    Undermenu navn:
+                    <span class="tip-content">Hvis der er flere paneler med samme 'Menu navn' laves en undermenu hvor dette navn bruges.</span>
+                </span></label>
+                <input type="text" required class="form-control" name="underMenuTag">
+            </div>
+            <div>
+                <label><span class="field-tip">
+                    Panel Design:
+                    <span class="tip-content">Her vælger du en af dine panel styles (Disse angiver fx. baggrundsfarve, skriftype, osv.)</span>
+                </span></label>
+                <select class="form-control" name="panelDesign">
+                    @foreach (var item in Model.PanelStyles)
+                    {
+                        <option value=@item.Id>@item.StyleName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label><span class="field-tip">
+                    Overskrift:
+                    <span class="tip-content">En overskrift i selvepanelet, fx. 'Velkommen til www.sima.dk'</span>
+                </span></label>
+                <input type="text" required class="form-control" name="hdr">
+            </div>
+            <div class="form-group">
+                <label><span class="field-tip">
+                    Panel Tekst:
+                    <span class="tip-content">Dette panel har en tilhørende tekst.</span>
+                </span></label>
+                <textarea name="cntxt"></textarea>
+                <script>
+                    CKEDITOR.replace('cntxt');
+                </script>
+            </div>
+        </div>
+        <br>
+        <div class="col-md-2">
+            <div class="hidden-lg hidden-md">
+                <br/>
+            </div>
+            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Gem</button>
+        </div>
+    </form>
+</div>
+</body>

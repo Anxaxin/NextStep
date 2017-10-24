@@ -1,0 +1,137 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "Panel";
+}
+<head>
+    <link href="~/Content/lightbox.css" rel="stylesheet" />
+    <link type="text/css" href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+</head>
+<body>
+    
+    @{ int paddingtop = Model.Style.HeaderSize;}
+    @if (Model.Style.HeaderAlignRight != 2)
+    {
+        paddingtop = paddingtop * 2;
+    }
+    else
+    {
+        if (Model.Style.HeaderSize == 0)
+        {
+            paddingtop = paddingtop + 20;
+        }
+        if (Model.Style.HeaderSize == 10)
+        {
+            paddingtop = paddingtop + 50;
+        }
+        if (Model.Style.HeaderSize == 20)
+        {
+            paddingtop = paddingtop + 80;
+        }
+    }
+
+<div style="padding-top: @Html.Raw(paddingtop)px;">
+    @{var item = Model.Pan[0];}
+    @foreach (var panel in Model.Pan)
+    {
+        if (panel.MenuTag == ViewBag.mainId && panel.UnderMenuTag == ViewBag.subId)
+        {
+            item = panel;
+        }
+        if (panel.MenuTag == ViewBag.mainId && ViewBag.subId == null)
+        {
+            item = panel;
+        }
+    }
+
+    @if (item != null)
+    {
+        if (item.TextPanel != null)
+        {
+            <div class="panel panel-default col-md-8 col-md-offset-2" style="padding-left: 40px; padding-right: 40px; background-color: #@item.PanelStyle.color_panel_background">
+                <h2 style="text-align: center; color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title;">@item.TextPanel.Header</h2>
+                <p style="color: #@item.PanelStyle.color_panel_context">
+                    @Html.Raw(HttpUtility.HtmlDecode(item.TextPanel.Context))
+                </p>
+            </div>
+        }
+        else if (item.VideoTable != null)
+        {
+            <div class="col-md-8 col-md-offset-2 panel panel-default" style="height: 630px; background-color: #@item.PanelStyle.color_panel_background">
+                <h2 style="text-align: center; padding-top: 2%; color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">@item.VideoTable.VideoHeader</h2>
+                <div style="width: 100%; height: 100%">
+                    <iframe style="width: 100%; height: 85%" src="http://www.youtube.com/embed/@item.VideoTable.VideoUrl"></iframe>
+                </div>
+            </div>
+        }
+        else if (item.PicturePanel != null)
+        {
+            <div class="col-md-8 col-md-offset-2 panel panel-default" style="padding-bottom: 2%; background-color: #@item.PanelStyle.color_panel_background">
+                <div class="col-md-12" style="color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">
+                    <h2 style="text-align: center; padding-top: 2%; color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">@item.PicturePanel.Header</h2>
+                </div>
+                <p style="text-align: center; display: block;">
+                    <img alt="<3" class="img-responsive img-rounded" style="margin: 0 auto;" src="data:image;base64,@Convert.ToBase64String(item.PicturePanel.ImageData)"/>
+                </p>
+            </div>
+        }
+        else if (item.CombomPanel != null)
+        {
+            if (item.CombomPanel.PictureAlign == "Right")
+            {
+                <div class="col-md-8 col-md-offset-2 panel panel-default" style="padding-left: 40px; padding-bottom: 2%; padding-top: 2%; background-color: #@item.PanelStyle.color_panel_background">
+                    <div class="row">
+                        <div class="col-md-6" style="color: #@item.PanelStyle.color_panel_context">
+                            <h2 style="color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">@Html.Raw(HttpUtility.HtmlDecode(item.CombomPanel.Header)) </h2>
+                            <p>@Html.Raw(HttpUtility.HtmlDecode(item.CombomPanel.Context))</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img class="img-responsive img-rounded" style="padding-right: 12%; padding-top: 4%; max-width: 80%; float: right" src="data:image;base64,@Convert.ToBase64String(item.CombomPanel.ImageData)"/>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (item.CombomPanel.PictureAlign == "Left")
+            {
+                <div class="col-md-8 col-md-offset-2 panel panel-default" style="padding-bottom: 2%; padding-top: 2%; background-color: #@item.PanelStyle.color_panel_background">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img class="img-responsive img-rounded" style="padding-left: 12%; padding-top: 4%; max-width: 80%" src="data:image;base64,@Convert.ToBase64String(item.CombomPanel.ImageData)"/>
+                        </div>
+                        <div class="col-md-6" style="color: #@item.PanelStyle.color_panel_context">
+                            <h2 style="color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">@Html.Raw(HttpUtility.HtmlDecode(item.CombomPanel.Header))</h2>
+                            <p>@Html.Raw(HttpUtility.HtmlDecode(item.CombomPanel.Context))</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else if (item.GalleryPanel != null)
+        {
+            <div class="col-md-8 col-md-offset-2 panel panel-default " style="padding-bottom: 2%; background-color: #@item.PanelStyle.color_panel_background">
+                <div class="col-md-12" style="color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">
+                    <h2 style="text-align: center; padding-top: 2%; color: #@item.PanelStyle.color_panel_title; font-family: @item.PanelStyle.font_family_panel_title">@item.GalleryPanel.Header</h2>
+                </div>
+                @foreach (var image in item.GalleryPanel.GalleryImages)
+                {
+                    <div class="col-md-4 container4" style="height: 150px">
+                        <p style="height: 150px; padding-left: 7%; padding-right: 7%;">
+                            <a href="@Url.Action("showGalleryImage", "Image", new {id = image.ID})" data-lightbox="Gallery" data-title="@image.imageDescription">
+                                <img class="img-responsive img-rounded" style="padding-top: 4%; max-width: 100%; max-height: 100%" src="data:image;base64,@Convert.ToBase64String(image.imageThumb)"/>
+                            </a>
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+    }
+    <footer class="navbar-fixed-bottom" style="background-color: #@Model.Style.ColorSiteBackground">
+
+        <p style="text-align: center">
+            @Html.Raw(HttpUtility.HtmlDecode(Model.Style.Footertext))
+        </p>
+    </footer>
+</div>
+<script src="~/Scripts/jquery-1.10.2.intellisense.js"></script>
+<script src="~/Scripts/lightbox.js"></script>
+</body>

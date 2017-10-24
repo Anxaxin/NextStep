@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Style.PageTitle</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @model NextStepMVC.Models.RetrieveContent
+                        
+    @if (Model.Style.NextStepUrl)
+    {
+        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    }
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href = "/Content/navbar.css" rel = "stylesheet" />
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+</head>
+@{ var headersize = Model.Style.HeaderSize * 2 - 7;}
+    <body style="background-color:#@Model.Style.ColorSiteBackground">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #@Model.Style.ColorHeaderBackground;">
+    
+    @if (Model.Style.HeaderAlignRight == 0)
+    {
+        <a href="@Url.Action("Index", "Home")">
+            <div class="navbar-brand" style="float: right; padding-right: 10%; height: @Html.Raw(headersize)px;">
+                @if (Model.Style.ImageData != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(Model.Style.ImageData)"/>
+                }
+                else
+                {
+                    <p style="color: #@Model.Style.ColorHeaderTitle; font-family: @Model.Style.FontHeaderTitle; text-align: center; margin-top: @Html.Raw(Model.Style.HeaderSize)px;">@Model.Style.PageTitle</p>
+                }
+            </div>
+        </a>
+        <a href="@Url.Action("Index", "Home")">
+            <div class="navbar-brand hidden-xs" style="float: left; padding-left: 10%; visibility: hidden; height: @Html.Raw(headersize)px;">
+                @if (Model.Style.ImageData != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(Model.Style.ImageData)"/>
+                }
+                else
+                {
+                    <p style="color: #@Model.Style.ColorHeaderTitle; font-family: @Model.Style.FontHeaderTitle; text-align: center; margin-top: @Html.Raw(Model.Style.HeaderSize)px;">@Model.Style.PageTitle</p>
+                }
+            </div>
+        </a>
+    }
+    else if(Model.Style.HeaderAlignRight == 1)
+    {
+        <a href="@Url.Action("Index", "Home")">
+            <div class="navbar-brand" style="float: left; padding-left: 10%; height: @Html.Raw(headersize)px;">
+                @if (Model.Style.ImageData != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(Model.Style.ImageData)"/>
+                }
+                else
+                {
+                    <p style="color: #@Model.Style.ColorHeaderTitle; font-family: @Model.Style.FontHeaderTitle; text-align: center; margin-top: @Html.Raw(Model.Style.HeaderSize)px;">@Model.Style.PageTitle</p>
+                }
+            </div>
+        </a>
+
+        <a href="@Url.Action("Index", "Home")">
+            <div class="navbar-brand hidden-xs" style="float: right; visibility: hidden; padding-right: 10%; height: @Html.Raw(headersize)px;">
+                @if (Model.Style.ImageData != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(Model.Style.ImageData)" />
+                }
+                else
+                {
+                    <p style="color: #@Model.Style.ColorHeaderTitle; font-family: @Model.Style.FontHeaderTitle; text-align: center; margin-top: @Html.Raw(Model.Style.HeaderSize)px;">@Model.Style.PageTitle</p>
+                }
+            </div>
+        </a>
+    }
+
+    else if(Model.Style.HeaderAlignRight == 2)
+    {
+        <div class="">
+            <a href="@Url.Action("Index", "Home")">
+                <div class="navbar-brand" style="height: @Html.Raw(headersize + 30)px; margin: auto; width: 100%;">
+                    <p style="color: #@Model.Style.ColorHeaderTitle; font-family: @Model.Style.FontHeaderTitle; text-align: center; margin-top: @Html.Raw(Model.Style.HeaderSize)px;">@Model.Style.PageTitle</p>
+                </div>
+            </a>
+        </div>
+    }
+    
+        
+        <div class="navbar-header" style="background-color: #@Model.Style.ColorHeaderBackground">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" style="margin-bottom: 1px">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+
+    
+
+
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav" style="margin: @Html.Raw(Model.Style.HeaderSize)px;">
+            @functions
+            {
+
+                public bool Checkid(List<int> list, int id)
+                {
+                    var used = false;
+
+                    foreach (var item in list)
+                    {
+                        if (id == item)
+                        {
+                            used = true;
+                        }
+                    }
+                    return used;
+                }
+
+            }
+
+            @if (Model != null)
+            {
+                Model.GetIndexing();
+
+                if (Model.Style.SinglePage) //If single page
+                {
+                    var buffer = new List<string>();
+                    var dropTag = new List<List<string>>();
+                    var usedids = new List<int>();
+                    buffer.Add("");
+                    foreach (var item in Model.Pan)
+                    {
+                        var populated = false;
+                        foreach (var bufferitem in buffer)
+                        {
+                            if (item.MenuTag != bufferitem)
+                            {
+                                foreach (var dropt in dropTag)
+                                {
+                                    if (dropt[0] == item.MenuTag)
+                                    {
+                                        dropt.Add(item.MenuTag);
+                                        populated = true;
+                                    }
+                                    if (populated)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (populated)
+                            {
+                                break;
+                            }
+                        }
+                        if (populated == false)
+                        {
+                            dropTag.Add(new List<string>());
+                            dropTag.Last().Add(item.MenuTag);
+                        }
+                        buffer.Add(item.MenuTag);
+                    }
+                    foreach (var item in dropTag)
+                    {
+                        if (item.Count() < 2)
+                        {
+                            foreach (var pan in Model.Pan)
+                            {
+                                if (item[0] == pan.MenuTag)
+                                {
+                                    usedids.Add(pan.Panel_Id);
+                                    <li><a href="@Url.Action("Index", "Home")#@pan.MenuTag@pan.Panel_Id" style="color: #@Model.Style.ColorHeaderText; font-family: @Model.Style.FontHeaderMenu">@pan.MenuTag </a></li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="color: #@Model.Style.ColorHeaderText; font-family: @Model.Style.FontHeaderMenu" aria-expanded="false">@item[0] <span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="background-color: #@Model.Style.ColorHeaderBackground">
+                                    @foreach (var item2 in item)
+                                    {
+                                        foreach (var pan in Model.Pan)
+                                        {
+                                            if (pan.MenuTag == item2)
+                                            {
+                                                if (Checkid(usedids, pan.Panel_Id))
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    usedids.Add(pan.Panel_Id);
+                                                    <li><a href="@Url.Action("Index", "Home")#@pan.MenuTag@pan.Panel_Id" style="color: #@Model.Style.ColorHeaderText; font-family: @Model.Style.FontHeaderMenu">@pan.UnderMenuTag </a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                }
+                else //If not singlePage
+                {
+                    var buffer = new List<string>();
+                    var dropTag = new List<List<string>>();
+                    var usedids = new List<int>();
+                    buffer.Add("");
+                    foreach (var item in Model.Pan)
+                    {
+                        var populated = false;
+                        foreach (var bufferitem in buffer)
+                        {
+                            if (item.MenuTag != bufferitem)
+                            {
+                                foreach (var dropt in dropTag)
+                                {
+                                    if (dropt[0] == item.MenuTag)
+                                    {
+                                        dropt.Add(item.MenuTag);
+                                        populated = true;
+                                    }
+                                    if (populated)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (populated)
+                            {
+                                break;
+                            }
+                        }
+                        if (populated == false)
+                        {
+                            dropTag.Add(new List<string>());
+                            dropTag.Last().Add(item.MenuTag);
+                        }
+                        buffer.Add(item.MenuTag);
+                    }
+                    foreach (var item in dropTag)
+                    {
+                        if (item.Count() < 2)
+                        {
+                            foreach (var pan in Model.Pan)
+                            {
+                                if (item[0] == pan.MenuTag)
+                                {
+                                    usedids.Add(pan.Panel_Id);
+
+                                    <li>
+                                        <a href="@Url.Action("Panel", "Home", new {mainId = pan.MenuTag})" style="color: #@Model.Style.ColorHeaderText; font-family: @Model.Style.FontHeaderMenu">@pan.MenuTag </a>
+                                    </li>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="color: #@Model.Style.ColorHeaderText; font-family: @Model.Style.FontHeaderMenu" aria-expanded="false">@item[0] <span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="background-color: #@Model.Style.ColorHeaderBackground">
+                                    @foreach (var item2 in item)
+                                    {
+                                        foreach (var pan in Model.Pan)
+                                        {
+                                            if (pan.MenuTag == item2)
+                                            {
+                                                if (Checkid(usedids, pan.Panel_Id))
+                                                {
+                                                }
+                                                else
+                                                {
+                                                    usedids.Add(pan.Panel_Id);
+                                                    <li><a href="@Url.Action("Panel", "Home", new {mainId = pan.MenuTag, subId = pan.UnderMenuTag})" style="color: #@Model.Style.ColorHeaderText">@pan.UnderMenuTag </a></li>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                }
+            }
+        </ul>
+    </div>
+    </div>
+        <div class="container body-content">
+            <br />
+            @RenderBody()
+            </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

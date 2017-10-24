@@ -1,0 +1,135 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "AddUser";
+}
+<head>
+    
+
+</head>
+
+<body>
+    
+    @{ int paddingtop = Model.Style.HeaderSize;}
+    @if (Model.Style.HeaderAlignRight != 2)
+    {
+        paddingtop = paddingtop * 2;
+    }
+    else
+    {
+        if (Model.Style.HeaderSize == 0)
+        {
+            paddingtop = paddingtop + 20;
+        }
+        if (Model.Style.HeaderSize == 10)
+        {
+            paddingtop = paddingtop + 50;
+        }
+        if (Model.Style.HeaderSize == 20)
+        {
+            paddingtop = paddingtop + 80;
+        }
+    }
+
+        <div style="padding-top: @Html.Raw(paddingtop)px;"></div>
+
+
+        <div class="container" style="padding-top: @Html.Raw(Model.Style.HeaderSize * 2)px;">
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="jumbotron" style="background-color: #FFBABA; height: 50px; padding-top: 14px">
+                    <h5 style="color: #D8000C"> <i class="glyphicon glyphicon-ban-circle">  </i> @Html.Raw(ViewBag.Error) </h5>
+                </div>
+            }
+            else if (ViewBag.Success != null)
+            {
+                <div class="jumbotron" style="background-color: #DFF2BF; height: 50px; padding-top: 14px">
+                    <h5 style="color: #4F8A10"> <i class="glyphicon glyphicon-ok">  </i> @Html.Raw(ViewBag.Success) </h5>
+                </div>
+            }
+            <a href="/Admin/AdminHome">Tilbage</a>
+            <div class="row">
+                <h2>Håndtér brugere</h2>
+
+            </div>
+            <div class="row">
+                <hr />
+                <h4>Tilføj ny bruger.</h4>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="form-group">
+                        <label>
+                            <span class="field-tip">
+                                Nyt brugernavn:
+                                <span class="tip-content">Brugernavnet bruges både til at refererer til kontoen, samt til at logge ind med.</span>
+                            </span>
+                        </label>
+                        <input type="text" class="form-control" autocomplete="off" name="nusr" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>
+                            <span class="field-tip">
+                                Nyt password:
+                                <span class="tip-content">Password bruges til at logge ind med.</span>
+                            </span>
+                        </label>
+                        <input type="password" class="form-control" autocomplete="off" name="npwd" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label>
+                            <span class="field-tip">
+                                Bekræft password:
+                                <span class="tip-content">Password bruges til at logge ind med.</span>
+                            </span>
+                        </label>
+                        <input type="password" class="form-control" autocomplete="off" name="npwd2" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="hidden-lg hidden-md">
+                            <br />
+                        </div>
+                        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Gem</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <br />
+                <hr />
+                <h4>Ret eksisterende bruger</h4>
+
+                <div class="container">
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Brugernavn</th>
+                                    <th>Ret bruger</th>
+                                    <th>Slet bruger</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.AdminLogins)
+                                {
+                                    <tr>
+                                        <td> <i class="glyphicon glyphicon-user"> </i> @item.user</td>
+                                        <td><a href="/Admin/EditPass?id=@item.Id"><i class="glyphicon glyphicon-edit"></i></a></td>
+                                        <td> <a href="/Admin/RemoveUser?id=@item.Id" onclick="return confirm('Er du sikker på du vil slette denne bruger?')"> <i class="glyphicon glyphicon-trash"></i> </a> </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>

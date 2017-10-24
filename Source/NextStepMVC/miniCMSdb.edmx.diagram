@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ba489f29966040cfbe3fc27d044e7b60" Name="Diagram1" ZoomLevel="92">
+        <EntityTypeShape EntityType="CMSDbModel.AdminLogin" Width="1.5" PointX="4.625" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.CombomPanel" Width="1.5" PointX="7.875" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.GalleryImage" Width="1.5" PointX="9.875" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.GalleryPanel" Width="1.5" PointX="7.875" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.ImageFullSize" Width="1.5" PointX="11.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.PageSetting" Width="2" PointX="3.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.Panel" Width="1.5" PointX="5.875" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.PanelStyle" Width="1.5" PointX="5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.PicturePanel" Width="1.5" PointX="7.875" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.SiteStyleSheet" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.TextPanel" Width="1.5" PointX="7.875" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CMSDbModel.VideoTable" Width="1.5" PointX="7.875" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="CMSDbModel.FK__CombomPane__P_Id__54CB950F" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__GalleryIm__Galle__7AF13DF7" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__ImageFullSiz__Id__0E04126B" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__GalleryPan__P_Id__67DE6983" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__PageSetti__pageS__2EA5EC27" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__Panel__StyleShee__57A801BA" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__PicturePan__P_Id__55BFB948" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__TextPanel__P_Id__589C25F3" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__VideoTable__P_Id__56B3DD81" ManuallyRouted="false" />
+        <AssociationConnector Association="CMSDbModel.FK__Panel__PageSetti__1F2E9E6D" />
+        <AssociationConnector Association="CMSDbModel.FK__AdminLogi__PageS__324172E1" />
+        <AssociationConnector Association="CMSDbModel.FK__PanelStyl__PageS__45544755" />
+        <EntityTypeShape EntityType="CMSDbModel.PageSettingDomain" Width="1.5" PointX="2.75" PointY="4.625" />
+        <AssociationConnector Association="CMSDbModel.FK__PageSetti__PageS__5D2BD0E6" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

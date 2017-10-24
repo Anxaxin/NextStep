@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "EditImageDescription";
+}
+<head>
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+
+
+
+    <body>
+        @if (ViewData["id"] != null)
+        {
+            var id = ViewBag.id;
+            <div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+                <div id="panelEdit">
+                    <form method="post" enctype="multipart/form-data">
+                        <h2>Ret Billede</h2>
+                        <input type="text" hidden value="@id" name="thisID" />
+                        <div>
+                            <img src=@Url.Action("ShowGalleryThumb", "Image", new {id}) />
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Titel</label>
+                                <input type="text" value="@ViewBag.imgtitle" required class="form-control" id="hdr" name="hdr">
+                            </div>
+                            <div class="form-group">
+                                <label>Beskrivelse</label>
+                                <br />
+                                <textarea style="width: 100%; height: 150px" name="desc">@ViewBag.imgdesc</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Gem</button>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Annuller" onclick="javascript:history.back()">Annuller</button>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="hidden-lg hidden-md">
+                                <br />
+                            </div>
+                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Slet" type="submit" onclick="return confirm('Er du sikker på du vil slette dette billede?')" name="submit" id="delete" value="delete">Slet billedet</button>
+                        </div>
+                        <div class="hidden-sm hidden-xs">
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </body>

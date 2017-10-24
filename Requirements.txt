@@ -1,0 +1,4 @@
+Run in an elevated command prompt
+
+netsh http add urlacl url=http://*:57892/ user=everyone
+netsh http add urlacl url=http://localhost:57892/ user=everyone

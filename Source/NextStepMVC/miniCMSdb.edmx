@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CMSDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageSettingId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CombomPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="ImageType" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageData" Type="image" />
+          <Property Name="PictureAlign" Type="nvarchar" MaxLength="20" />
+          <Property Name="Header" Type="nvarchar" MaxLength="150" />
+          <Property Name="Context" Type="nvarchar" MaxLength="1500" />
+        </EntityType>
+        <EntityType Name="GalleryImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gallery_Id" Type="int" Nullable="false" />
+          <Property Name="imageType" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="imageThumb" Type="image" Nullable="false" />
+          <Property Name="imageTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="imageDescription" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="GalleryPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Context" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="ImageFullSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="imagedata" Type="image" Nullable="false" />
+          <Property Name="imagetype" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PageSettingDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageSettingId" Type="int" Nullable="false" />
+          <Property Name="Domain" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Culture" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NextStepAlias" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PageSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PrimaryPageUri" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="FooterText" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="pageStyle" Type="int" Nullable="false" />
+          <Property Name="singlePage" Type="bit" Nullable="false" />
+          <Property Name="HeaderImage" Type="image" />
+          <Property Name="HeaderImageType" Type="nvarchar" MaxLength="50" />
+          <Property Name="HeaderSize" Type="int" Nullable="false" />
+          <Property Name="AlignHeaderRight" Type="int" Nullable="false" />
+          <Property Name="Culture" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Panel">
+          <Key>
+            <PropertyRef Name="Panel_Id" />
+          </Key>
+          <Property Name="Panel_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuTag" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StyleSheet" Type="int" Nullable="false" />
+          <Property Name="UnderMenuTag" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageSettingId" Type="int" Nullable="false" />
+          <Property Name="MenuIndex" Type="int" />
+          <Property Name="UnderMenuIndex" Type="int" />
+        </EntityType>
+        <EntityType Name="PanelStyles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StyleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-panel-context" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-panel-title" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-panel-background" Type="nvarchar" MaxLength="50" />
+          <Property Name="font-family-panel-context" Type="nvarchar" MaxLength="50" />
+          <Property Name="font-family-panel-title" Type="nvarchar" MaxLength="50" />
+          <Property Name="PageSettingId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PicturePanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="ImageType" Type="nvarchar" MaxLength="150" />
+          <Property Name="ImageData" Type="image" />
+          <Property Name="Header" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="SiteStyleSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="color-header-text" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-header-title" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-header-background" Type="nvarchar" MaxLength="50" />
+          <Property Name="color-site-background" Type="nvarchar" MaxLength="50" />
+          <Property Name="font-family-header" Type="nvarchar" MaxLength="50" />
+          <Property Name="font-family-header-menu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TextPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="Header" Type="nvarchar" MaxLength="50" />
+          <Property Name="Context" Type="nvarchar" MaxLength="1500" />
+        </EntityType>
+        <EntityType Name="VideoTable">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="VideoUrl" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="VideoSize" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VideoHeader" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK__AdminLogi__PageS__5CD6CB2B">
+          <End Role="PageSettings" Type="Self.PageSettings" Multiplicity="1" />
+          <End Role="AdminLogin" Type="Self.AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSettings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CombomPane__P_Id__45F365D3">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="CombomPanel" Type="Self.CombomPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="CombomPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GalleryIm__Galle__403A8C7D">
+          <End Role="GalleryPanel" Type="Self.GalleryPanel" Multiplicity="1" />
+          <End Role="GalleryImage" Type="Self.GalleryImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GalleryPanel">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="GalleryImage">
+              <PropertyRef Name="Gallery_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GalleryPan__P_Id__46E78A0C">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="GalleryPanel" Type="Self.GalleryPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="GalleryPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImageFullSiz__Id__47DBAE45">
+          <End Role="GalleryImage" Type="Self.GalleryImage" Multiplicity="1" />
+          <End Role="ImageFullSize" Type="Self.ImageFullSize" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GalleryImage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ImageFullSize">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageSetti__PageS__412EB0B6">
+          <End Role="PageSettings" Type="Self.PageSettings" Multiplicity="1" />
+          <End Role="PageSettingDomain" Type="Self.PageSettingDomain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSettings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PageSettingDomain">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageSetti__pageS__48CFD27E">
+          <End Role="SiteStyleSheet" Type="Self.SiteStyleSheet" Multiplicity="1" />
+          <End Role="PageSettings" Type="Self.PageSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SiteStyleSheet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PageSettings">
+              <PropertyRef Name="pageStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Panel__PageSetti__4316F928">
+          <End Role="PageSettings" Type="Self.PageSettings" Multiplicity="1" />
+          <End Role="Panel" Type="Self.Panel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSettings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panel">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Panel__StyleShee__4222D4EF">
+          <End Role="PanelStyles" Type="Self.PanelStyles" Multiplicity="1" />
+          <End Role="Panel" Type="Self.Panel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PanelStyles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panel">
+              <PropertyRef Name="StyleSheet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PanelStyl__PageS__440B1D61">
+          <End Role="PageSettings" Type="Self.PageSettings" Multiplicity="1" />
+          <End Role="PanelStyles" Type="Self.PanelStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSettings">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PanelStyles">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PicturePan__P_Id__49C3F6B7">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="PicturePanel" Type="Self.PicturePanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="PicturePanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TextPanel__P_Id__4AB81AF0">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="TextPanel" Type="Self.TextPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="TextPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VideoTable__P_Id__4BAC3F29">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="VideoTable" Type="Self.VideoTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="VideoTable">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CMSDbModelStoreContainer">
+          <EntitySet Name="AdminLogin" EntityType="Self.AdminLogin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CombomPanel" EntityType="Self.CombomPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GalleryImage" EntityType="Self.GalleryImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GalleryPanel" EntityType="Self.GalleryPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageFullSize" EntityType="Self.ImageFullSize" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageSettingDomain" EntityType="Self.PageSettingDomain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PageSettings" EntityType="Self.PageSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Panel" EntityType="Self.Panel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PanelStyles" EntityType="Self.PanelStyles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PicturePanel" EntityType="Self.PicturePanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SiteStyleSheet" EntityType="Self.SiteStyleSheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TextPanel" EntityType="Self.TextPanel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoTable" EntityType="Self.VideoTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AdminLogi__PageS__5CD6CB2B" Association="Self.FK__AdminLogi__PageS__5CD6CB2B">
+            <End Role="PageSettings" EntitySet="PageSettings" />
+            <End Role="AdminLogin" EntitySet="AdminLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CombomPane__P_Id__45F365D3" Association="Self.FK__CombomPane__P_Id__45F365D3">
+            <End Role="Panel" EntitySet="Panel" />
+            <End Role="CombomPanel" EntitySet="CombomPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GalleryIm__Galle__403A8C7D" Association="Self.FK__GalleryIm__Galle__403A8C7D">
+            <End Role="GalleryPanel" EntitySet="GalleryPanel" />
+            <End Role="GalleryImage" EntitySet="GalleryImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GalleryPan__P_Id__46E78A0C" Association="Self.FK__GalleryPan__P_Id__46E78A0C">
+            <End Role="Panel" EntitySet="Panel" />
+            <End Role="GalleryPanel" EntitySet="GalleryPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImageFullSiz__Id__47DBAE45" Association="Self.FK__ImageFullSiz__Id__47DBAE45">
+            <End Role="GalleryImage" EntitySet="GalleryImage" />
+            <End Role="ImageFullSize" EntitySet="ImageFullSize" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageSetti__PageS__412EB0B6" Association="Self.FK__PageSetti__PageS__412EB0B6">
+            <End Role="PageSettings" EntitySet="PageSettings" />
+            <End Role="PageSettingDomain" EntitySet="PageSettingDomain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageSetti__pageS__48CFD27E" Association="Self.FK__PageSetti__pageS__48CFD27E">
+            <End Role="SiteStyleSheet" EntitySet="SiteStyleSheet" />
+            <End Role="PageSettings" EntitySet="PageSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Panel__PageSetti__4316F928" Association="Self.FK__Panel__PageSetti__4316F928">
+            <End Role="PageSettings" EntitySet="PageSettings" />
+            <End Role="Panel" EntitySet="Panel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Panel__StyleShee__4222D4EF" Association="Self.FK__Panel__StyleShee__4222D4EF">
+            <End Role="PanelStyles" EntitySet="PanelStyles" />
+            <End Role="Panel" EntitySet="Panel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PanelStyl__PageS__440B1D61" Association="Self.FK__PanelStyl__PageS__440B1D61">
+            <End Role="PageSettings" EntitySet="PageSettings" />
+            <End Role="PanelStyles" EntitySet="PanelStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PicturePan__P_Id__49C3F6B7" Association="Self.FK__PicturePan__P_Id__49C3F6B7">
+            <End Role="Panel" EntitySet="Panel" />
+            <End Role="PicturePanel" EntitySet="PicturePanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TextPanel__P_Id__4AB81AF0" Association="Self.FK__TextPanel__P_Id__4AB81AF0">
+            <End Role="Panel" EntitySet="Panel" />
+            <End Role="TextPanel" EntitySet="TextPanel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VideoTable__P_Id__4BAC3F29" Association="Self.FK__VideoTable__P_Id__4BAC3F29">
+            <End Role="Panel" EntitySet="Panel" />
+            <End Role="VideoTable" EntitySet="VideoTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CMSDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdminLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="user" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PageSettingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PageSetting" Relationship="CMSDbModel.FK__AdminLogi__PageS__324172E1" FromRole="AdminLogin" ToRole="PageSetting" />
+        </EntityType>
+        <EntityType Name="CombomPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="ImageType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PictureAlign" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Header" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Panel" Relationship="Self.FK__CombomPane__P_Id__54CB950F" FromRole="CombomPanel" ToRole="Panel" />
+        </EntityType>
+        <EntityType Name="GalleryImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gallery_Id" Type="Int32" Nullable="false" />
+          <Property Name="imageType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imageThumb" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="imageTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="imageDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GalleryPanel" Relationship="Self.FK__GalleryIm__Galle__7AF13DF7" FromRole="GalleryImage" ToRole="GalleryPanel" />
+          <NavigationProperty Name="ImageFullSize" Relationship="Self.FK__ImageFullSiz__Id__0E04126B" FromRole="GalleryImage" ToRole="ImageFullSize" />
+        </EntityType>
+        <EntityType Name="GalleryPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="Header" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Context" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GalleryImages" Relationship="Self.FK__GalleryIm__Galle__7AF13DF7" FromRole="GalleryPanel" ToRole="GalleryImage" />
+          <NavigationProperty Name="Panel" Relationship="Self.FK__GalleryPan__P_Id__67DE6983" FromRole="GalleryPanel" ToRole="Panel" />
+        </EntityType>
+        <EntityType Name="ImageFullSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="imagedata" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="imagetype" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="GalleryImage" Relationship="Self.FK__ImageFullSiz__Id__0E04126B" FromRole="ImageFullSize" ToRole="GalleryImage" />
+        </EntityType>
+        <EntityType Name="PageSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="PageName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FooterText" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pageStyle" Type="Int32" Nullable="false" />
+          <Property Name="singlePage" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="SiteStyleSheet" Relationship="Self.FK__PageSetti__pageS__2EA5EC27" FromRole="PageSettings" ToRole="SiteStyleSheet" />
+          <NavigationProperty Name="Panels" Relationship="CMSDbModel.FK__Panel__PageSetti__1F2E9E6D" FromRole="PageSetting" ToRole="Panel" />
+          <NavigationProperty Name="AdminLogins" Relationship="CMSDbModel.FK__AdminLogi__PageS__324172E1" FromRole="PageSetting" ToRole="AdminLogin" />
+          <NavigationProperty Name="PanelStyles" Relationship="CMSDbModel.FK__PanelStyl__PageS__45544755" FromRole="PageSetting" ToRole="PanelStyle" />
+          <NavigationProperty Name="PageSettingDomains" Relationship="CMSDbModel.FK__PageSetti__PageS__5D2BD0E6" FromRole="PageSetting" ToRole="PageSettingDomain" />
+          <Property Name="PrimaryPageUri" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HeaderImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="HeaderImageType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderSize" Type="Int32" Nullable="false" />
+          <Property Name="AlignHeaderRight" Type="Int32" Nullable="false" />
+          <Property Name="Culture" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Panel">
+          <Key>
+            <PropertyRef Name="Panel_Id" />
+          </Key>
+          <Property Name="Panel_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuTag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StyleSheet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CombomPanel" Relationship="Self.FK__CombomPane__P_Id__54CB950F" FromRole="Panel" ToRole="CombomPanel" />
+          <NavigationProperty Name="GalleryPanel" Relationship="Self.FK__GalleryPan__P_Id__67DE6983" FromRole="Panel" ToRole="GalleryPanel" />
+          <NavigationProperty Name="PanelStyle" Relationship="Self.FK__Panel__StyleShee__57A801BA" FromRole="Panel" ToRole="PanelStyles" />
+          <NavigationProperty Name="PicturePanel" Relationship="Self.FK__PicturePan__P_Id__55BFB948" FromRole="Panel" ToRole="PicturePanel" />
+          <NavigationProperty Name="TextPanel" Relationship="Self.FK__TextPanel__P_Id__589C25F3" FromRole="Panel" ToRole="TextPanel" />
+          <NavigationProperty Name="VideoTable" Relationship="Self.FK__VideoTable__P_Id__56B3DD81" FromRole="Panel" ToRole="VideoTable" />
+          <Property Name="UnderMenuTag" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PageSettingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PageSetting" Relationship="CMSDbModel.FK__Panel__PageSetti__1F2E9E6D" FromRole="Panel" ToRole="PageSetting" />
+          <Property Name="MenuIndex" Type="Int32" />
+          <Property Name="UnderMenuIndex" Type="Int32" />
+        </EntityType>
+        <EntityType Name="PanelStyle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StyleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_panel_context" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_panel_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_panel_background" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="font_family_panel_context" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="font_family_panel_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Panels" Relationship="Self.FK__Panel__StyleShee__57A801BA" FromRole="PanelStyles" ToRole="Panel" />
+          <Property Name="PageSettingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PageSetting" Relationship="CMSDbModel.FK__PanelStyl__PageS__45544755" FromRole="PanelStyle" ToRole="PageSetting" />
+        </EntityType>
+        <EntityType Name="PicturePanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="ImageType" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ImageData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Header" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Panel" Relationship="Self.FK__PicturePan__P_Id__55BFB948" FromRole="PicturePanel" ToRole="Panel" />
+        </EntityType>
+        <EntityType Name="SiteStyleSheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="color_header_text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_header_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_header_background" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="color_site_background" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="font_family_header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="font_family_header_menu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PageSettings" Relationship="Self.FK__PageSetti__pageS__2EA5EC27" FromRole="SiteStyleSheet" ToRole="PageSettings" />
+        </EntityType>
+        <EntityType Name="TextPanel">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Panel" Relationship="Self.FK__TextPanel__P_Id__589C25F3" FromRole="TextPanel" ToRole="Panel" />
+        </EntityType>
+        <EntityType Name="VideoTable">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="VideoUrl" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VideoSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VideoHeader" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Panel" Relationship="Self.FK__VideoTable__P_Id__56B3DD81" FromRole="VideoTable" ToRole="Panel" />
+        </EntityType>
+        <Association Name="FK__CombomPane__P_Id__54CB950F">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="CombomPanel" Type="Self.CombomPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="CombomPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GalleryIm__Galle__7AF13DF7">
+          <End Role="GalleryPanel" Type="Self.GalleryPanel" Multiplicity="1" />
+          <End Role="GalleryImage" Type="Self.GalleryImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GalleryPanel">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="GalleryImage">
+              <PropertyRef Name="Gallery_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ImageFullSiz__Id__0E04126B">
+          <End Role="GalleryImage" Type="Self.GalleryImage" Multiplicity="1" />
+          <End Role="ImageFullSize" Type="Self.ImageFullSize" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GalleryImage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ImageFullSize">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GalleryPan__P_Id__67DE6983">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="GalleryPanel" Type="Self.GalleryPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="GalleryPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PageSetti__pageS__2EA5EC27">
+          <End Role="SiteStyleSheet" Type="Self.SiteStyleSheet" Multiplicity="1" />
+          <End Role="PageSettings" Type="Self.PageSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SiteStyleSheet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PageSettings">
+              <PropertyRef Name="pageStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Panel__StyleShee__57A801BA">
+          <End Role="PanelStyles" Type="Self.PanelStyle" Multiplicity="1" />
+          <End Role="Panel" Type="Self.Panel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PanelStyles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panel">
+              <PropertyRef Name="StyleSheet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PicturePan__P_Id__55BFB948">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="PicturePanel" Type="Self.PicturePanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="PicturePanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TextPanel__P_Id__589C25F3">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="TextPanel" Type="Self.TextPanel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="TextPanel">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VideoTable__P_Id__56B3DD81">
+          <End Role="Panel" Type="Self.Panel" Multiplicity="1" />
+          <End Role="VideoTable" Type="Self.VideoTable" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Panel">
+              <PropertyRef Name="Panel_Id" />
+            </Principal>
+            <Dependent Role="VideoTable">
+              <PropertyRef Name="P_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CMSDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminLogins" EntityType="Self.AdminLogin" />
+          <EntitySet Name="CombomPanels" EntityType="Self.CombomPanel" />
+          <EntitySet Name="GalleryImages" EntityType="Self.GalleryImage" />
+          <EntitySet Name="GalleryPanels" EntityType="Self.GalleryPanel" />
+          <EntitySet Name="ImageFullSizes" EntityType="Self.ImageFullSize" />
+          <EntitySet Name="PageSettings" EntityType="Self.PageSetting" />
+          <EntitySet Name="Panels" EntityType="Self.Panel" />
+          <EntitySet Name="PanelStyles" EntityType="Self.PanelStyle" />
+          <EntitySet Name="PicturePanels" EntityType="Self.PicturePanel" />
+          <EntitySet Name="SiteStyleSheets" EntityType="Self.SiteStyleSheet" />
+          <EntitySet Name="TextPanels" EntityType="Self.TextPanel" />
+          <EntitySet Name="VideoTables" EntityType="Self.VideoTable" />
+          <AssociationSet Name="FK__CombomPane__P_Id__54CB950F" Association="Self.FK__CombomPane__P_Id__54CB950F">
+            <End Role="Panel" EntitySet="Panels" />
+            <End Role="CombomPanel" EntitySet="CombomPanels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GalleryIm__Galle__7AF13DF7" Association="Self.FK__GalleryIm__Galle__7AF13DF7">
+            <End Role="GalleryPanel" EntitySet="GalleryPanels" />
+            <End Role="GalleryImage" EntitySet="GalleryImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImageFullSiz__Id__0E04126B" Association="Self.FK__ImageFullSiz__Id__0E04126B">
+            <End Role="GalleryImage" EntitySet="GalleryImages" />
+            <End Role="ImageFullSize" EntitySet="ImageFullSizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GalleryPan__P_Id__67DE6983" Association="Self.FK__GalleryPan__P_Id__67DE6983">
+            <End Role="Panel" EntitySet="Panels" />
+            <End Role="GalleryPanel" EntitySet="GalleryPanels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PageSetti__pageS__2EA5EC27" Association="Self.FK__PageSetti__pageS__2EA5EC27">
+            <End Role="SiteStyleSheet" EntitySet="SiteStyleSheets" />
+            <End Role="PageSettings" EntitySet="PageSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Panel__StyleShee__57A801BA" Association="Self.FK__Panel__StyleShee__57A801BA">
+            <End Role="PanelStyles" EntitySet="PanelStyles" />
+            <End Role="Panel" EntitySet="Panels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PicturePan__P_Id__55BFB948" Association="Self.FK__PicturePan__P_Id__55BFB948">
+            <End Role="Panel" EntitySet="Panels" />
+            <End Role="PicturePanel" EntitySet="PicturePanels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TextPanel__P_Id__589C25F3" Association="Self.FK__TextPanel__P_Id__589C25F3">
+            <End Role="Panel" EntitySet="Panels" />
+            <End Role="TextPanel" EntitySet="TextPanels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VideoTable__P_Id__56B3DD81" Association="Self.FK__VideoTable__P_Id__56B3DD81">
+            <End Role="Panel" EntitySet="Panels" />
+            <End Role="VideoTable" EntitySet="VideoTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Panel__PageSetti__1F2E9E6D" Association="CMSDbModel.FK__Panel__PageSetti__1F2E9E6D">
+            <End Role="PageSetting" EntitySet="PageSettings" />
+            <End Role="Panel" EntitySet="Panels" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AdminLogi__PageS__324172E1" Association="CMSDbModel.FK__AdminLogi__PageS__324172E1">
+            <End Role="PageSetting" EntitySet="PageSettings" />
+            <End Role="AdminLogin" EntitySet="AdminLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PanelStyl__PageS__45544755" Association="CMSDbModel.FK__PanelStyl__PageS__45544755">
+            <End Role="PageSetting" EntitySet="PageSettings" />
+            <End Role="PanelStyle" EntitySet="PanelStyles" />
+          </AssociationSet>
+          <EntitySet Name="PageSettingDomains" EntityType="CMSDbModel.PageSettingDomain" />
+          <AssociationSet Name="FK__PageSetti__PageS__5D2BD0E6" Association="CMSDbModel.FK__PageSetti__PageS__5D2BD0E6">
+            <End Role="PageSetting" EntitySet="PageSettings" />
+            <End Role="PageSettingDomain" EntitySet="PageSettingDomains" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__Panel__PageSetti__1F2E9E6D">
+          <End Type="CMSDbModel.PageSetting" Role="PageSetting" Multiplicity="1" />
+          <End Type="CMSDbModel.Panel" Role="Panel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSetting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Panel">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AdminLogi__PageS__324172E1">
+          <End Type="CMSDbModel.PageSetting" Role="PageSetting" Multiplicity="1" />
+          <End Type="CMSDbModel.AdminLogin" Role="AdminLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSetting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AdminLogin">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PanelStyl__PageS__45544755">
+          <End Type="CMSDbModel.PageSetting" Role="PageSetting" Multiplicity="1" />
+          <End Type="CMSDbModel.PanelStyle" Role="PanelStyle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSetting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PanelStyle">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PageSettingDomain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageSettingId" Type="Int32" Nullable="false" />
+          <Property Name="Domain" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Culture" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PageSetting" Relationship="CMSDbModel.FK__PageSetti__PageS__5D2BD0E6" FromRole="PageSettingDomain" ToRole="PageSetting" />
+          <Property Name="NextStepAlias" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__PageSetti__PageS__5D2BD0E6">
+          <End Type="CMSDbModel.PageSetting" Role="PageSetting" Multiplicity="1" />
+          <End Type="CMSDbModel.PageSettingDomain" Role="PageSettingDomain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PageSetting">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PageSettingDomain">
+              <PropertyRef Name="PageSettingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CMSDbModelStoreContainer" CdmEntityContainer="CMSDbEntities">
+          <EntitySetMapping Name="AdminLogins">
+            <EntityTypeMapping TypeName="CMSDbModel.AdminLogin">
+              <MappingFragment StoreEntitySet="AdminLogin">
+                <ScalarProperty Name="PageSettingId" ColumnName="PageSettingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CombomPanels">
+            <EntityTypeMapping TypeName="CMSDbModel.CombomPanel">
+              <MappingFragment StoreEntitySet="CombomPanel">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="PictureAlign" ColumnName="PictureAlign" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GalleryImages">
+            <EntityTypeMapping TypeName="CMSDbModel.GalleryImage">
+              <MappingFragment StoreEntitySet="GalleryImage">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Gallery_Id" ColumnName="Gallery_Id" />
+                <ScalarProperty Name="imageType" ColumnName="imageType" />
+                <ScalarProperty Name="imageThumb" ColumnName="imageThumb" />
+                <ScalarProperty Name="imageTitle" ColumnName="imageTitle" />
+                <ScalarProperty Name="imageDescription" ColumnName="imageDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GalleryPanels">
+            <EntityTypeMapping TypeName="CMSDbModel.GalleryPanel">
+              <MappingFragment StoreEntitySet="GalleryPanel">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageFullSizes">
+            <EntityTypeMapping TypeName="CMSDbModel.ImageFullSize">
+              <MappingFragment StoreEntitySet="ImageFullSize">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="imagedata" ColumnName="imagedata" />
+                <ScalarProperty Name="imagetype" ColumnName="imagetype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageSettings">
+            <EntityTypeMapping TypeName="CMSDbModel.PageSetting">
+              <MappingFragment StoreEntitySet="PageSettings">
+                <ScalarProperty Name="Culture" ColumnName="Culture" />
+                <ScalarProperty Name="AlignHeaderRight" ColumnName="AlignHeaderRight" />
+                <ScalarProperty Name="HeaderSize" ColumnName="HeaderSize" />
+                <ScalarProperty Name="HeaderImageType" ColumnName="HeaderImageType" />
+                <ScalarProperty Name="HeaderImage" ColumnName="HeaderImage" />
+                <ScalarProperty Name="PrimaryPageUri" ColumnName="PrimaryPageUri" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="FooterText" ColumnName="FooterText" />
+                <ScalarProperty Name="pageStyle" ColumnName="pageStyle" />
+                <ScalarProperty Name="singlePage" ColumnName="singlePage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Panels">
+            <EntityTypeMapping TypeName="CMSDbModel.Panel">
+              <MappingFragment StoreEntitySet="Panel">
+                <ScalarProperty Name="UnderMenuIndex" ColumnName="UnderMenuIndex" />
+                <ScalarProperty Name="MenuIndex" ColumnName="MenuIndex" />
+                <ScalarProperty Name="PageSettingId" ColumnName="PageSettingId" />
+                <ScalarProperty Name="UnderMenuTag" ColumnName="UnderMenuTag" />
+                <ScalarProperty Name="Panel_Id" ColumnName="Panel_Id" />
+                <ScalarProperty Name="MenuTag" ColumnName="MenuTag" />
+                <ScalarProperty Name="StyleSheet" ColumnName="StyleSheet" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PanelStyles">
+            <EntityTypeMapping TypeName="CMSDbModel.PanelStyle">
+              <MappingFragment StoreEntitySet="PanelStyles">
+                <ScalarProperty Name="PageSettingId" ColumnName="PageSettingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StyleName" ColumnName="StyleName" />
+                <ScalarProperty Name="color_panel_context" ColumnName="color-panel-context" />
+                <ScalarProperty Name="color_panel_title" ColumnName="color-panel-title" />
+                <ScalarProperty Name="color_panel_background" ColumnName="color-panel-background" />
+                <ScalarProperty Name="font_family_panel_context" ColumnName="font-family-panel-context" />
+                <ScalarProperty Name="font_family_panel_title" ColumnName="font-family-panel-title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PicturePanels">
+            <EntityTypeMapping TypeName="CMSDbModel.PicturePanel">
+              <MappingFragment StoreEntitySet="PicturePanel">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="ImageType" ColumnName="ImageType" />
+                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiteStyleSheets">
+            <EntityTypeMapping TypeName="CMSDbModel.SiteStyleSheet">
+              <MappingFragment StoreEntitySet="SiteStyleSheet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="color_header_text" ColumnName="color-header-text" />
+                <ScalarProperty Name="color_header_title" ColumnName="color-header-title" />
+                <ScalarProperty Name="color_header_background" ColumnName="color-header-background" />
+                <ScalarProperty Name="color_site_background" ColumnName="color-site-background" />
+                <ScalarProperty Name="font_family_header" ColumnName="font-family-header" />
+                <ScalarProperty Name="font_family_header_menu" ColumnName="font-family-header-menu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TextPanels">
+            <EntityTypeMapping TypeName="CMSDbModel.TextPanel">
+              <MappingFragment StoreEntitySet="TextPanel">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Header" ColumnName="Header" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoTables">
+            <EntityTypeMapping TypeName="CMSDbModel.VideoTable">
+              <MappingFragment StoreEntitySet="VideoTable">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+                <ScalarProperty Name="VideoSize" ColumnName="VideoSize" />
+                <ScalarProperty Name="VideoHeader" ColumnName="VideoHeader" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PageSettingDomains">
+            <EntityTypeMapping TypeName="CMSDbModel.PageSettingDomain">
+              <MappingFragment StoreEntitySet="PageSettingDomain">
+                <ScalarProperty Name="NextStepAlias" ColumnName="NextStepAlias" />
+                <ScalarProperty Name="Culture" ColumnName="Culture" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
+                <ScalarProperty Name="PageSettingId" ColumnName="PageSettingId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

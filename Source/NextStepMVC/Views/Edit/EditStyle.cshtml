@@ -1,0 +1,189 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "EditStyle";
+}
+<head>
+    <script src="~/Scripts/jscolor.js"></script>
+    <link href="~/Content/fontselect.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.fontselect.js"></script>
+    
+    <script>
+
+            $(document).ready(function () {
+
+                $('#HeaderColor').on('change', function () {
+                    $('#headerpreview').css('color', '#' + $(this).val());
+                });
+
+                $('#ContextColor').on('change', function () {
+                    $('#contextpreview').css('color', '#' + $(this).val());
+                });
+
+                $('#PanelColor').on('change', function () {
+                    $('#panelpreview').css('background-color', '#' + $(this).val());
+                });
+
+
+                $("#preview").toggle();
+
+                $("#previewbtn").click(function () {
+                    $("#preview").fadeToggle();
+                });
+
+            });
+    </script>
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+
+    <body>
+        @if (Model.PanelStyles[ViewBag.id] != null)
+        {
+            <div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+                <a href="/Admin/AdminHome">Tilbage</a>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="number" hidden value=@Model.PanelStyles[ViewBag.id].Id name="thisId">
+                    <h2>Ret Panel Style</h2>
+                    <div class="well">
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Style navn:
+                                        <span class="tip-content">Et navn til senere reference til denne style. (fx. 'Default')</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required value="@Model.PanelStyles[ViewBag.id].StyleName" name="styleName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Farve på overskrift:
+                                        <span class="tip-content">Alle paneler indeholder en overskrift, her vælges hvilken farve denne skal have.</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required id="HeaderColor" value="@Model.PanelStyles[ViewBag.id].color_panel_title" name="titleColor" class="jscolor" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                            <p></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Farve på tekst:
+                                        <span class="tip-content">Hvis et panel indeholder en tekst, får skriften denne farve.</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required id="ContextColor" value="@Model.PanelStyles[ViewBag.id].color_panel_context" name="contextColor" class="jscolor" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Baggrundsfarve:
+                                        <span class="tip-content">Alle paneler er indrammet af en kasse, her vælges hvilken farve denne kasse skal have.</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required id="PanelColor" value="@Model.PanelStyles[ViewBag.id].color_panel_background" name="backgroundColor" class="jscolor" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Skrifttype overskrift:
+                                        <span class="tip-content">Vælg hvilken skrifttype der skal anvendes på overskriften i panelet.</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required value="@Model.PanelStyles[ViewBag.id].font_family_panel_title" name="titleFont" id="titleFont" type="text">
+                                <script> $('#titleFont').fontselect(); </script>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>
+                                    <span class="field-tip">
+                                        Skrifttype tekst:
+                                        <span class="tip-content">Vælg hvilken skrifttype der skal anvendes, hvis panelet indeholder en tekst.</span>
+                                    </span>
+                                </label>
+                                <br />
+                                <input required value="@Model.PanelStyles[ViewBag.id].font_family_panel_context" name="contextFont" id="contextFont" type="text">
+                                <script> $('#contextFont').fontselect(); </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="Save" value="Save">Gem</button>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Annuller" type="submit" name="submit" id="Cancel" value="Cancel">Annuller</button>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Slet" type="submit" onclick="return confirm('Er du sikker på du vil slette denne style?')" name="submit" id="Delete" value="Delete">Slet</button>
+                    </div>
+                </form>
+                <div class="col-md-2">
+                    <button id="previewbtn" class="btn btn-inverse" style="align-items: center; width: 100%;">Forhåndsvisning</button>
+                </div>
+            </div>
+
+
+
+            <div id="preview">
+                <div style="padding: 20px;"></div>
+                <p style="text-align: center">Forhåndsvisningen illusterer kun farver på de forskellige elementer, IKKE skrifttyperne.</p>
+                <div class="panel panel-default col-md-8 col-md-offset-2" id="panelpreview" style="position: relative; background:#@Model.PanelStyles[ViewBag.id].color_panel_background">
+                    <h2 id="headerpreview" style="text-align: center; padding-top: 2%; color: #@Model.PanelStyles[ViewBag.id].color_panel_title; font-family: serif;">Vulputate</h2>
+                    <div id="contextpreview" style="padding-left: 40px; padding-right: 40px; color: #@Model.PanelStyles[ViewBag.id].color_panel_context">
+                        @Html.Raw(HttpUtility.HtmlDecode("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, <br/>  "))
+                        <br />
+
+                    </div>
+                </div>
+            </div>
+        }
+    </body>

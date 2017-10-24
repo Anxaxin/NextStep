@@ -1,0 +1,164 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "EditGalleryPanel";
+}
+<head>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#menuTag').autocomplete(
+            {
+                source: '@Url.Action("GetMenuTags", "Add")'
+            });
+        })
+    </script>
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+
+    <body>
+        @if (ViewData["id"] != null)
+        {
+            var id = ViewBag.id;
+            <div class="container" style="padding-top: @Html.Raw(paddingtop)px;">
+                <a href="/Admin/AdminHome">Tilbage</a>
+                <div id="panelEdit">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="panel panel-default" style="padding-left: 3%">
+                            <input type="text" value="@Model.Pan[id].Panel_Id" hidden name="thisID" />
+                            <div class="row">
+                                <h2>Ret Galleri Panel</h2>
+                                <div class="form-group">
+                                    <label>
+                                        <span class="field-tip">
+                                            Menu navn:
+                                            <span class="tip-content">Hvad der kommer til at stå i toppen af siden.</span>
+                                        </span>
+                                    </label>
+                                    <input type="text" value="@Model.Pan[id].MenuTag" required class="form-control" id="menuTag" name="menuTag">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <span class="field-tip">
+                                            Undermenu navn:
+                                            <span class="tip-content">Hvis der er flere paneler med samme 'Menu navn' laves en undermenu hvor dette navn bruges.</span>
+                                        </span>
+                                    </label>
+                                    <input type="text" required class="form-control" value="@Model.Pan[id].UnderMenuTag" name="underMenuTag">
+                                </div>
+                                <label>
+                                    <span class="field-tip">
+                                        Panel Design:
+                                        <span class="tip-content">Her vælger du en af dine panel styles (Disse angiver fx. baggrundsfarve, skriftype, osv.)</span>
+                                    </span>
+                                </label>
+                                <select required class="form-control" id="panelDesign" name="panelDesign">
+                                    @foreach (var item in Model.PanelStyles)
+                                    {
+                                        if (item.Id == Model.Pan[id].StyleSheet)
+                                        {
+                                            <option selected value=@item.Id>@item.StyleName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value=@item.Id>@item.StyleName</option>
+                                        }
+                                    }
+                                </select>
+                                <div class="form-group">
+                                    <label>
+                                        <span class="field-tip">
+                                            Overskrift:
+                                            <span class="tip-content">En overskrift i selvepanelet, fx. 'Velkommen til www.sima.dk'</span>
+                                        </span>
+                                    </label>
+                                    <input type="text" value="@Model.Pan[id].GalleryPanel.Header" required class="form-control" id="hdr" name="hdr">
+                                </div>
+                                <div>
+                                    <br />
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="hidden-lg hidden-md">
+                                        <br />
+                                    </div>
+                                    <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Gem</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="hidden-lg hidden-md">
+                                        <br />
+                                    </div>
+                                    <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Annuller" type="submit" name="submit" id="cancel" value="cancel">Tilbage</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="hidden-lg hidden-md">
+                                        <br />
+                                    </div>
+                                    <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Slet" type="submit" onclick="return confirm('Er du sikker på du vil slette dette panel?')" name="submit" id="delete" value="delete">Slet Panelet</button>
+                                </div>
+
+                                <div class="hidden-sm hidden-xs">
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default" style="padding-left: 3%; padding-right: 3%">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label>
+                                                <span class="field-tip">
+                                                    Upload billeder:
+                                                    <span class="tip-content">Her kan du uploade billeder som vises i panelet.</span>
+                                                </span>
+                                            </label>
+                                            <div class="form-control" id="multiple">
+                                                <input type="file" class="multiple" name="files" id="files" multiple />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2" style="padding-top: 2%">
+                                            <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="save" value="save">Upload billeder</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label><b>Tryk på et billede for at rette beskrivelse, titel og for at slette!</b> </label>
+                            </div>
+                            <div class="row">
+                                @foreach (var image in Model.Pan[id].GalleryPanel.GalleryImages)
+                                {
+                                    <a href="@Url.Action("EditImageDescription", "Edit", new {id = image.ID})">
+                                        <div class="col-md-1">
+                                            <img style="max-height: 75px; max-width: 75px; padding-bottom: 3%" src="data:image;base64,@Convert.ToBase64String(image.imageThumb)" />
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </body>

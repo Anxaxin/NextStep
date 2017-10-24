@@ -1,0 +1,307 @@
+﻿@model NextStepMVC.Models.RetrieveContent
+@{
+    ViewBag.Title = "AddSiteStyle";
+}
+<head>
+    <script src="~/Scripts/jscolor.js"></script>
+    <link href="~/Content/fontselect.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.fontselect.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#testcolor').on('change', function () {
+                console.log($(this).val());
+                $('#hej').css('background', '#' + $(this).val());
+            });
+
+
+            $("#con1").toggle();
+            $("#con2").toggle();
+            $("#con3").toggle();
+            $("#but1").click(function () {
+                $("#con1").fadeToggle();
+                var text = $('#but1').text();
+                $("#but1").text(
+                    text == "Vis side indstillinger " ? "Skjul side indstillinger" : "Vis side indstillinger");
+            });
+            $("#but2").click(function () {
+                $("#con2").fadeToggle();
+                var text = $('#but2').text();
+                $("#but2").text(
+                    text == "Vis header indstillinger" ? "Skjul header indstillinger" : "Vis header indstillinger");
+            });
+            $("#but3").click(function () {
+                $("#con3").fadeToggle();
+                var text = $('#but3').text();
+                $("#but3").text(
+                    text == "Vis logo/titel indstillinger" ? "Skjul logo/titel indstillinger" : "Vis logo/titel indstillinger");
+            });
+        });
+    </script>
+
+</head>
+
+@{ int paddingtop = Model.Style.HeaderSize;}
+@if (Model.Style.HeaderAlignRight != 2)
+{
+    paddingtop = paddingtop * 2;
+}
+else
+{
+    if (Model.Style.HeaderSize == 0)
+    {
+        paddingtop = paddingtop + 20;
+    }
+    if (Model.Style.HeaderSize == 10)
+    {
+        paddingtop = paddingtop + 50;
+    }
+    if (Model.Style.HeaderSize == 20)
+    {
+        paddingtop = paddingtop + 80;
+    }
+}
+    <body>
+    <div class="container" id="hej" style="padding-top: @Html.Raw(paddingtop)px;">
+        <a href="/Admin/AdminHome">Tilbage</a>
+    <h2>Ret Site Style</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="well">
+            <a id="but1">Vis side indstillinger</a>
+            <br />
+            <div id="con1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Side type:
+                                <span class="tip-content">Singlepage: En lang side, hvor alle panelerne kommer umiddelbart efterfulgt af hinanden og ved klik i menuen, scroller man automatisk ned til det gældende panel. Multipage: Den gammeldags opsætning af en side, hvor hvert panel har sin egen side.</span>
+                            </span>
+                        </label>
+                        <select required class="form-control" name="singlePage" id ="test">
+                            @if (Model.Style.SinglePage)
+                            {
+                                <option selected value="True">Single Page</option>
+                                <option value="False">Multi Page</option>
+                            }
+                            else
+                            {
+                                <option value="True">Single Page</option>
+                                <option selected value="False">Multi Page</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <p></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Baggrundsfarve:
+                                <span class="tip-content">Denne bestemmer hvilken baggrundsfarve siden skal have. (Dette har IKKE indflydelse på panelernes baggrundsfarve, de forbliver deres nuværende farve.)</span>
+                            </span>
+                        </label>
+                        <br />
+                        <input value="@Model.Style.ColorSiteBackground" id="testcolor" name="backgroundColor" class="jscolor" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="well">
+            <a id="but2">Vis header indstillinger</a>
+            <br />
+            <div id="con2">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Menu højde:
+                                <span class="tip-content">Vælger hvor tyk menuen i toppen er, dette kan være en god hjælp hvis man indsætter et billede som logo, for at gøre logoet større.</span>
+                            </span>
+                        </label>
+                        <select required class="form-control" name="headerSize">
+                            @if (Model.Style.HeaderSize == 0)
+                            {
+                                <option selected value="0">Tynd</option>
+                                <option value="10">Mellem</option>
+                                <option value="20">Tyk</option>
+                            }
+                            else if (Model.Style.HeaderSize == 10)
+                            {
+                                <option value="0">Tynd</option>
+                                <option selected value="10">Mellem</option>
+                                <option value="20">Tyk</option>
+                            }
+                            else if (Model.Style.HeaderSize == 20)
+                            {
+                                <option value="0">Tynd</option>
+                                <option value="10">Mellem</option>
+                                <option selected value="20">Tyk</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p></p>
+                    <p></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Menu farve:
+                                <span class="tip-content">Bestemmer hvilken farve menuen i toppen skal have.</span>
+                            </span>
+                        </label>
+                        <br />
+                        <input value="@Model.Style.ColorHeaderBackground" name="menuColor" class="jscolor" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Farve på menupunkter:
+                                <span class="tip-content">Her vælges hvilken farve menupunkterne i toppen af skærmen skal have.</span>
+                            </span>
+                        </label>
+                        <input value="@Model.Style.ColorHeaderText" name="menuTextColor" class="jscolor" />
+                    </div>
+                </div>
+                <div class="row">
+                    <p></p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Skrifttype menupunkter:
+                                <span class="tip-content">Her vælges hvilken skrifttype menupunkterne i toppen af skærmen skal have.</span>
+                            </span>
+                        </label>
+                        <input required name="menuFont" value="@Model.Style.FontHeaderMenu" id="contextFont" type="text">
+                        <script>
+                            $('#contextFont')
+                                .fontselect();
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well">
+            <a id="but3">Vis logo/titel indstillinger</a>
+            <div id="con3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Titel/logo tekst:
+                                <span class="tip-content">Hvis man vælger ikke at uploade billede som logo, anvedes denne tekst som logo oppe i toppen af siden.</span>
+                            </span>
+                        </label>
+                        <br />
+                        <input value="@Model.Style.PageTitle" required name="pageName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Titel/logo farve:
+                                <span class="tip-content">Hvis man vælger ikke at uploade billede som logo, anvedes denne farve på titel/logo teksten oppe i toppen af siden.</span>
+                            </span>
+                        </label>
+                        <br />
+                        <input value="@Model.Style.ColorHeaderTitle" name="titleTextColor" class="jscolor" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Titel/logo skriftype:
+                                <span class="tip-content">Hvis man vælger ikke at uploade billede som logo, anvedes denne skrifttype på titel/logo teksten oppe i toppen af siden.</span>
+                            </span>
+                        </label>
+                        <input required name="titleFont" value="@Model.Style.FontHeaderTitle" id="titleFont" type="text">
+                        <script> $('#titleFont').fontselect(); </script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>
+                                <span class="field-tip">
+                                    Upload logo:
+                                    <span class="tip-content">Her kan uploades et billede som anvendes som logo i toppen af siden.</span>
+                                </span>
+                            </label>
+                            <input type="file" id="imagefile" name="imagefile" />
+                        </div>
+                        @if (Model.Style.ImageData != null)
+                        {
+                            <div class="col-md-2">
+                                <br />
+                                <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Slet logo" type="submit" name="submit" onclick="return confirm('Er du sikker på du vil slette logoet?')" id="deleteLogo" value="deleteLogo">Slet logo</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>
+                            <span class="field-tip">
+                                Titel/logo placering:
+                                <span class="tip-content">Denne indstilling gælder både ved billede eller tekst logo og bestemmer hvilken side dette skal placeres.</span>
+                            </span>
+                        </label>
+                        <select required class="form-control" name="AlignLogoRight">
+                            @if (Model.Style.HeaderAlignRight == 0)
+                            {
+                                <option value="1">Venstre</option>
+                                <option selected value="0">Højre</option>
+                                <option value="2">Center</option>
+                            }
+                            else if (Model.Style.HeaderAlignRight == 1)
+                            {
+                                <option selected value="1">Venstre</option>
+                                <option value="0">Højre</option>
+                                <option value="2">Center</option>
+                            }
+                            else if (Model.Style.HeaderAlignRight == 2)
+                            {
+                                <option value="1">Venstre</option>
+                                <option value="0">Højre</option>
+                                <option selected value="2">Center</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-md-2">
+        <div class="hidden-lg hidden-md">
+            <br/>
+        </div>
+        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Gem" type="submit" name="submit" id="Save" value="Save">Gem</button>
+    </div>
+    <div class="col-md-2">
+        <div class="hidden-lg hidden-md">
+            <br/>
+        </div>
+        <button class="btn btn-inverse" style="align-items: center; width: 100%" title="Annuller" type="submit" name="submit" id="Cancel" value="Cancel">Annuller</button>
+    </div>
+    </form>
+        </div>
+    </body>
